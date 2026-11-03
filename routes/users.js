@@ -212,7 +212,7 @@ module.exports = function (router) {
                     { _id: { $in: oldPendingTasks } },
                     { assignedUser: "", assignedUserName: "unassigned" }
                 );
-                return res.status(200).json({ message: "User deleted successfully", data: deletedUser });
+                return res.status(204).send();
             }
         } catch (_) {
             return res.status(500).json({ message: "Error with the server/database", data: {} });

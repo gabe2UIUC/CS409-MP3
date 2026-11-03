@@ -98,7 +98,7 @@ module.exports = function (router) {
                     await new Promise((x) => setTimeout(x, (i+1) * 100));
                     continue;
                 } else if (err.code === 11000) {
-                    return res.status(400).json({ message: "Task name and deadline combination is already in use", data: {} });
+                    return res.status(400).json({ message: "This shouldn't be possible", data: {} });
                 } else {
                     // Server side error
                     return res.status(500).json({ message: "Error with the server/database", data: {} });
@@ -198,7 +198,7 @@ module.exports = function (router) {
                 return res.status(200).json({ message: "Successfully updated task", data: updatedTask });
             }
         } catch (err) {
-            if (err.code === 11000) { return res.status(400).json({ message: "Task name and deadline combination is already in use", data: {} }); }
+            if (err.code === 11000) { return res.status(400).json({ message: "Seriously how did you do this", data: {} }); }
             return res.status(500).json({ message: "Error with the server/database", data: {} });
         }
     });
@@ -222,7 +222,7 @@ module.exports = function (router) {
                         $pull: { pendingTasks: deletedTask._id }
                     });
                 }
-                return res.status(200).json({ message: "Task deleted successfully", data: deletedTask });
+                return res.status(204).send();
             }
         } catch (_) {
             return res.status(500).json({ message: "Error with the server/database", data: {} });
